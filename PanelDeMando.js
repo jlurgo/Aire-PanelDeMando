@@ -16,38 +16,49 @@ var onDeviceReady = function() {
 	var errorCallback = function(message) {
 		console.log('Error: ' + message);
 	};
-//{vid: '1A86', pid: '7523'},
-	serial.requestPermission(function(successMessage) {
-			console.log("permiso concedido para usar puerto serie");
-			serial.open(
-				{baudRate: 9600},
-				function(successMessage) {
-					$("#btn_enviar").click(function(){
-						serial.write(
-							'1',
-							function(successMessage) {
-								console.log(successMessage);
-							},
-							function(err){
-								console.log("error al enviar por puerto serie:", err);
-							}
-						);	
-					});
-					
-					serial.registerReadCallback(
-						function(data){
-							var view = new Uint8Array(data);
-							console.log("recibido por puerto serie:", view);
+	
+	var abrirPuertoSerie = function(){
+		serial.open(
+			{baudRate: 9600},
+			function(successMessage) {
+				console.log("puerto serie abierto:", successMessage);
+				$("#btn_enviar").click(function(){
+					serial.write(
+						'1',
+						function(successMessage) {
+							console.log(successMessage);
 						},
 						function(err){
-							console.log("error al registrar callback:", err);
+							console.log("error al enviar por puerto serie:", err);
 						}
-					);
-				},
-				function(err){
-					console.log("error al abrir puerto serie:", err);
-				}
-			);
+					);	
+				});
+
+				serial.registerReadCallback(
+					function(data){
+						var view = new Uint8Array(data);
+						console.log("recibido por puerto serie:", view);
+					},
+					function(err){
+						console.log("error al registrar callback:", err);
+					}
+				);
+			},
+			function(err){
+				console.log("error al abrir puerto serie:", err);
+			}
+		);
+	};
+//{vid: '1A86', pid: '7523'},
+	serial.requestPermission(function(successMessage) {
+			console.log("permiso concedido para usar puerto serie:", successMessage);
+			serial.close(function(){
+				console.log("puerto serie cerrado");
+				abrirPuertoSerie();
+			}, function(err){
+				console.log("error al cerrar puerto serie");
+				abrirPuertoSerie();
+			});
 		},
 		function(err){
 			console.log("error al pedir permiso para usar puerto serie:", err);
