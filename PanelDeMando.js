@@ -50,7 +50,8 @@ var onDeviceReady = function() {
 		);
 	};
 	
-	serial.requestPermission({vid: '0x2341', pid: '0x0001'}, function(successMessage) {
+	serial.requestPermission(//{vid: '0x2341', pid: '0x0001'}, 
+							 function(successMessage) {
 			console.log("permiso concedido para usar puerto serie:", successMessage);
 			serial.close(function(){
 				console.log("puerto serie cerrado");
