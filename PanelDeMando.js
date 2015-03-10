@@ -49,8 +49,8 @@ var onDeviceReady = function() {
 			}
 		);
 	};
-//{vid: '1A86', pid: '7523'},
-	serial.requestPermission(function(successMessage) {
+	
+	serial.requestPermission({vid: '0x1A86', pid: '0x7523'}, function(successMessage) {
 			console.log("permiso concedido para usar puerto serie:", successMessage);
 			serial.close(function(){
 				console.log("puerto serie cerrado");
