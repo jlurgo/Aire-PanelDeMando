@@ -8,7 +8,7 @@
     <!-- versionCode is optional and Android only -->
     <gap:platform name="android" />
         
-    <name>Prueba Bluetooth</name>
+    <name>Panel de Mando Aires</name>
 
     <description>
         Panel de control de los aires
