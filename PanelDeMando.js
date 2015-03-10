@@ -16,9 +16,8 @@ var onDeviceReady = function() {
 	var errorCallback = function(message) {
 		console.log('Error: ' + message);
 	};
-
-	serial.requestPermission({vid: '1A86', pid: '7523'},
-		function(successMessage) {
+//{vid: '1A86', pid: '7523'},
+	serial.requestPermission(function(successMessage) {
 			console.log("permiso concedido para usar puerto serie");
 			serial.open(
 				{baudRate: 9600},
