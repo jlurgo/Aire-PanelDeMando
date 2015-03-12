@@ -24,7 +24,7 @@ var onDeviceReady = function() {
 				console.log("puerto serie abierto:", successMessage);
 				$("#btn_enviar").mousedown(function(){
 					serial.write(
-						'1',
+						1,
 						function(successMessage) {
 							console.log(successMessage);
 						},
@@ -36,7 +36,7 @@ var onDeviceReady = function() {
 
 				$("#btn_enviar").mouseup(function(){
 					serial.write(
-						'0',
+						0,
 						function(successMessage) {
 							console.log(successMessage);
 						},
