@@ -6,20 +6,12 @@ var onDeviceReady = function() {
 //    vx.conectarPorWebSockets({
 //        url:'https://router-vortex.herokuapp.com'
 //    }); 
-	serial.requestPermission(function(){
-		console.log("permiso concedido");
-		serial.open({baudRate:}, function(){}, function(){});
-	}, function error(err){
-		console.log("error al pedir permiso para serie");
-	});
-	
 	var errorCallback = function(message) {
 		console.log('Error: ' + message);
 	};
 	
 	var abrirPuertoSerie = function(){
-		serial.open(
-			{baudRate: 57600},
+		serial.open ({baudRate: 57600},
 			function(successMessage) {
 				console.log("puerto serie abierto:", successMessage);
 				$("#btn_enviar").mousedown(function(){
