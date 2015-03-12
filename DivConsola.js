@@ -1,7 +1,8 @@
 var DivConsola = {
 	start: function(){
 		var _this = this;
-		this.divConsola = $("<div>");
+		this.divConsola = $("<div id='div_consola'>");
+		this.divConsola.hide();
 		$("body").append(this.divConsola);
 		
 		var oldLog = console.log;
@@ -25,5 +26,15 @@ var DivConsola = {
 			oldLog.apply(console, arguments);
 		};		
 		
+		this.btnConsola = $("<input id='btn_consola' type='button' value='/'>");
+		$("body").append(this.btnConsola);
+		
+		this.btnConsola.click(function(){
+			_this.divConsola.toggle();
+		});
 	}	
 };
+
+$(function(){
+	DivConsola.start();
+});
