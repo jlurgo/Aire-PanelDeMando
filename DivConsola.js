@@ -34,7 +34,3 @@ var DivConsola = {
 		});
 	}	
 };
-
-$(function(){
-	DivConsola.start();
-});
