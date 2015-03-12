@@ -14,7 +14,7 @@ var onDeviceReady = function() {
 		serial.open ({baudRate: 57600},
 			function(successMessage) {
 				console.log("puerto serie abierto:", successMessage);
-				$("#btn_enviar").mousedown(function(){
+				$("#btn_enviar").bind('touchstart', function(){
 					serial.write(
 						'1',
 						function(successMessage) {
@@ -26,7 +26,7 @@ var onDeviceReady = function() {
 					);	
 				});
 
-				$("#btn_enviar").mouseup(function(){
+				$("#btn_enviar").bind('touchend', function(){
 					serial.write(
 						'0',
 						function(successMessage) {
