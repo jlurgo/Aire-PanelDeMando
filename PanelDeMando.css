@@ -1,3 +1,10 @@
 #plantillas{
     display:none;
 }
+
+#btn_enviar{
+	height: 100px;
+	width: 100px;
+	border-radius: 30px; 
+	background-color: red; 
+}

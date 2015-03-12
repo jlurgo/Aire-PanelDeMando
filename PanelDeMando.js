@@ -22,7 +22,7 @@ var onDeviceReady = function() {
 			{baudRate: 9600},
 			function(successMessage) {
 				console.log("puerto serie abierto:", successMessage);
-				$("#btn_enviar").click(function(){
+				$("#btn_enviar").mousedown(function(){
 					serial.write(
 						'1',
 						function(successMessage) {
@@ -34,6 +34,18 @@ var onDeviceReady = function() {
 					);	
 				});
 
+				$("#btn_enviar").mouseup(function(){
+					serial.write(
+						'0',
+						function(successMessage) {
+							console.log(successMessage);
+						},
+						function(err){
+							console.log("error al enviar por puerto serie:", err);
+						}
+					);	
+				});
+				
 				serial.registerReadCallback(
 					function(data){
 						var view = new Uint8Array(data);
