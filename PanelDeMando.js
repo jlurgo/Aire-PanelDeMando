@@ -8,7 +8,7 @@ var onDeviceReady = function() {
 //    }); 
 	serial.requestPermission(function(){
 		console.log("permiso concedido");
-		serial.open({}, function(){}, function(){});
+		serial.open({baudRate:}, function(){}, function(){});
 	}, function error(err){
 		console.log("error al pedir permiso para serie");
 	});
@@ -19,12 +19,12 @@ var onDeviceReady = function() {
 	
 	var abrirPuertoSerie = function(){
 		serial.open(
-			{baudRate: 9600},
+			{baudRate: 57600},
 			function(successMessage) {
 				console.log("puerto serie abierto:", successMessage);
 				$("#btn_enviar").mousedown(function(){
 					serial.write(
-						1,
+						'1',
 						function(successMessage) {
 							console.log(successMessage);
 						},
@@ -36,7 +36,7 @@ var onDeviceReady = function() {
 
 				$("#btn_enviar").mouseup(function(){
 					serial.write(
-						0,
+						'0',
 						function(successMessage) {
 							console.log(successMessage);
 						},
