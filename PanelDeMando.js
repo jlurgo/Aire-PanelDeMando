@@ -42,8 +42,8 @@ var onDeviceReady = function() {
 
 					serial.registerReadCallback(
 						function(data){
-							var view = new Uint8Array(data);
-							console.log("recibido por puerto serie:", view);
+							//var view = new Uint8Array(data);
+							console.log("recibido por puerto serie:", data);
 						},
 						function(err){
 							console.log("error al registrar callback:", err);
@@ -57,7 +57,7 @@ var onDeviceReady = function() {
 		};
 
 		serial.requestPermission(//{vid: '0x2341', pid: '0x0001'}, 
-								 function(successMessage) {
+			function(successMessage) {
 				console.log("permiso concedido para usar puerto serie:", successMessage);
 				serial.close(function(){
 					console.log("puerto serie cerrado");
