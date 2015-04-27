@@ -49,7 +49,9 @@ NodoSesionSeriePG.prototype.recibirMensaje = function(mensaje){
 };
 
 NodoSesionSeriePG.prototype.recibirIntSerie = function(int_recibido){  
-	if(int_recibido != 13) this.buffer_entrada_serie += String.fromCharCode.apply(int_recibido);
+	if(this.verbose) console.log("conector serie " + _this.idNodo + " recibió:",  int_recibido);
+	if(int_recibido != 13) 
+		this.buffer_entrada_serie += String.fromCharCode.apply(int_recibido);
 	else {
 		var mensaje;
 		try{
