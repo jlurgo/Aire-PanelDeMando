@@ -23,25 +23,25 @@ $(document).ready(function() {
     if(window.isphone) {
         document.addEventListener("deviceready", onDeviceReady, false);
     } else {
-//		serial = {
-//			requestPermission: function(success){
-//				success("ok");
-//			},
-//			close: function(success){
-//				success("ok");
-//			},
-//			open : function(opt, success){
-//				success("ok");
-//			},
-//			registerReadCallback: function(cb){
+		serial = {
+			requestPermission: function(success){
+				success("ok");
+			},
+			close: function(success){
+				success("ok");
+			},
+			open : function(opt, success){
+				success("ok");
+			},
+			registerReadCallback: function(cb){
 //				setTimeout(function(){
 //					cb('{"idNodo":1,"msj":{"tipoDeMensaje":"Vortex.Filtro.Publicacion","filtro":{"tipo":"OR","filtros":[{"tipo":"EX","ejemplo":{"tipoDeMensaje":"Aire.encender","idAire":1}},{"tipo":"EX","ejemplo":{"tipoDeMensaje":"Aire.apagar","idAire":1}}]}}}|');
 //				}, 1000)
-//			},
-//			write: function(msg, success){
-//				success("ok");
-//			}
-//		}
+			},
+			write: function(msg, success){
+				success("ok");
+			}
+		}
         onDeviceReady();
     }
 });

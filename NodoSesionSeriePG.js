@@ -14,6 +14,7 @@ var NodoSesionSeriePG = function(idNodo, opt){
     this.verbose = opt.verbose||false;
 	this.vecino = new NodoNulo();
 	if(this.verbose) console.log("conector serie " + this.idNodo + " creado");
+	this.buffer_entrada_serie = "";
 };
 
 NodoSesionSeriePG.prototype.conectarCon = function(un_vecino){
@@ -35,7 +36,7 @@ NodoSesionSeriePG.prototype.recibirMensaje = function(mensaje){
 	if(mensaje.tipoDeMensaje)
 		if(mensaje.tipoDeMensaje=='Vortex.Filtro.Publicacion')
 			return;
-	var mensaje_str = JSON.stringify(mensaje) + '|';
+	var mensaje_str = JSON.stringify(mensaje) + String.fromCharCode(13);
 	serial.write(
 		mensaje_str,
 		function(successMessage) {
@@ -45,6 +46,22 @@ NodoSesionSeriePG.prototype.recibirMensaje = function(mensaje){
 			if(_this.verbose) console.log("error al enviar mensaje por conector serie:" + _this.idNodo, err, mensaje_str);
 		}
 	);	
+};
+
+NodoSesionSeriePG.prototype.recibirIntSerie = function(int_recibido){  
+	if(int_recibido != 13) this.buffer_entrada_serie += String.fromCharCode.apply(int_recibido);
+	else {
+		var mensaje;
+		try{
+			mensaje = JSON.parse(this.buffer_entrada_serie);
+		}catch(err){
+			if(_this.verbose) console.log("error al parsear en nodo " + this.idNodo +":", this.buffer_entrada_serie);
+		}
+		if(mensaje){				
+			this.recibirMensajeSerie(mensaje.msj);
+		}
+		this.buffer_entrada_serie = "";
+	}
 };
 
 NodoSesionSeriePG.prototype.recibirMensajeSerie = function(mensaje){  
