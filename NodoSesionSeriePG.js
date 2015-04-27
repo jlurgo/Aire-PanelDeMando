@@ -49,15 +49,15 @@ NodoSesionSeriePG.prototype.recibirMensaje = function(mensaje){
 };
 
 NodoSesionSeriePG.prototype.recibirIntSerie = function(int_recibido){  
-	if(this.verbose) console.log("conector serie " + this.idNodo + " recibió:",  int_recibido);
 	if(int_recibido != 10) 
 		this.buffer_entrada_serie += String.fromCharCode.apply(int_recibido);
 	else {
 		var mensaje;
 		try{
+			if(this.verbose) console.log("conector serie " + this.idNodo + " recibió:",  this.buffer_entrada_serie);
 			mensaje = JSON.parse(this.buffer_entrada_serie);
 		}catch(err){
-			if(_this.verbose) console.log("error al parsear en nodo " + this.idNodo +":", this.buffer_entrada_serie);
+			if(this.verbose) console.log("error al parsear en nodo " + this.idNodo +":", this.buffer_entrada_serie);
 		}
 		if(mensaje){				
 			this.recibirMensajeSerie(mensaje.msj);
