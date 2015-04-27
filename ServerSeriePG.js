@@ -39,7 +39,8 @@ ServerSeriePG.prototype.abrirPuertoSerie = function(){
 					//console.log("llegó:" + String.fromCharCode.apply(null, view));
 					console.log("llegó:", view);
 					
-					view.forEach(function(int_entrada){
+					for(var i=0; i<view.length; i++){
+						var int_entrada = view[i];
 						if(int_entrada<8){
 							el_proximo_es_para = int_entrada;
 						}else{
@@ -52,7 +53,7 @@ ServerSeriePG.prototype.abrirPuertoSerie = function(){
 							}
 							sesion.recibirIntSerie(int_entrada);
 						}
-					});
+					}
 //					buffer_entrada_serie += String.fromCharCode.apply(null, view);
 					
 					
