@@ -36,7 +36,7 @@ NodoSesionSeriePG.prototype.recibirMensaje = function(mensaje){
 	if(mensaje.tipoDeMensaje)
 		if(mensaje.tipoDeMensaje=='Vortex.Filtro.Publicacion')
 			return;
-	var mensaje_str = JSON.stringify(mensaje) + String.fromCharCode(13);
+	var mensaje_str = JSON.stringify(mensaje) + String.fromCharCode(10);
 	serial.write(
 		mensaje_str,
 		function(successMessage) {
@@ -50,7 +50,7 @@ NodoSesionSeriePG.prototype.recibirMensaje = function(mensaje){
 
 NodoSesionSeriePG.prototype.recibirIntSerie = function(int_recibido){  
 	if(this.verbose) console.log("conector serie " + this.idNodo + " recibió:",  int_recibido);
-	if(int_recibido != 13) 
+	if(int_recibido != 10) 
 		this.buffer_entrada_serie += String.fromCharCode.apply(int_recibido);
 	else {
 		var mensaje;
