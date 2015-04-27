@@ -50,7 +50,7 @@ NodoSesionSeriePG.prototype.recibirMensaje = function(mensaje){
 
 NodoSesionSeriePG.prototype.recibirIntSerie = function(int_recibido){  
 	if(int_recibido != 10) 
-		this.buffer_entrada_serie += String.fromCharCode.apply(int_recibido);
+		this.buffer_entrada_serie += String.fromCharCode(int_recibido);
 	else {
 		var mensaje;
 		try{
