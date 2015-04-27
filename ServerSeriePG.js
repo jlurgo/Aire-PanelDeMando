@@ -36,7 +36,8 @@ ServerSeriePG.prototype.abrirPuertoSerie = function(){
 			serial.registerReadCallback(
 				function(data){
 					var view = new Uint8Array(data);
-					console.log("llegó:" + String.fromCharCode.apply(null, view));
+					//console.log("llegó:" + String.fromCharCode.apply(null, view));
+					console.log("llegó:", view);
 					
 					_.forEach(view, function(int_entrada){
 						if(int_entrada<8){
