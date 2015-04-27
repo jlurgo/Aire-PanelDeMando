@@ -41,14 +41,14 @@ ServerSeriePG.prototype.abrirPuertoSerie = function(){
 					
 					for(var i=0; i<view.length; i++){
 						var int_entrada = view[i];
-						console.log("llegó:", int_entrada);
+						//console.log("llegó:", int_entrada);
 						if(int_entrada<8){
-							el_proximo_es_para = int_entrada;
+							id_nodo_proximo_char = int_entrada;
 						}else{
 							if(id_nodo_proximo_char == -1) return;
-							var sesion = _.findWhere(_this.sesiones, {idNodo: el_proximo_es_para});
+							var sesion = _.findWhere(_this.sesiones, {idNodo: id_nodo_proximo_char});
 							if(!sesion) {
-								sesion = new NodoSesionSeriePG(el_proximo_es_para, {verbose: _this.verbose});
+								sesion = new NodoSesionSeriePG(id_nodo_proximo_char, {verbose: _this.verbose});
 								_this.sesiones.push(sesion);
 								Vx.conectarCon(sesion);
 							}
