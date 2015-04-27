@@ -39,7 +39,7 @@ ServerSeriePG.prototype.abrirPuertoSerie = function(){
 					//console.log("llegó:" + String.fromCharCode.apply(null, view));
 					console.log("llegó:", view);
 					
-					_.forEach(view, function(int_entrada){
+					view.forEach(function(int_entrada){
 						if(int_entrada<8){
 							el_proximo_es_para = int_entrada;
 						}else{
