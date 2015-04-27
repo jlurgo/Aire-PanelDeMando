@@ -54,13 +54,12 @@ NodoSesionSeriePG.prototype.recibirIntSerie = function(int_recibido){
 	else {
 		var mensaje;
 		try{
-			if(this.verbose) console.log("conector serie " + this.idNodo + " recibió:",  this.buffer_entrada_serie);
 			mensaje = JSON.parse(this.buffer_entrada_serie);
 		}catch(err){
 			if(this.verbose) console.log("error al parsear en nodo " + this.idNodo +":", this.buffer_entrada_serie);
 		}
 		if(mensaje){				
-			this.recibirMensajeSerie(mensaje.msj);
+			this.recibirMensajeSerie(mensaje);
 		}
 		this.buffer_entrada_serie = "";
 	}
