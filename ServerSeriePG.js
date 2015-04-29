@@ -32,58 +32,27 @@ ServerSeriePG.prototype.abrirPuertoSerie = function(){
 
 			var buffer_entrada_serie = "";
 			var id_nodo_proximo_char = -1;
+			var sesion_que_recibe_proximo_char = {recibirIntSerie: function(){}};
 		
 			serial.registerReadCallback(
 				function(data){
 					var view = new Uint8Array(data);
-					//console.log("llegó:" + String.fromCharCode.apply(null, view));
-					
+					//console.log("llegó:" + String.fromCharCode.apply(null, view));					
 					
 					for(var i=0; i<view.length; i++){
 						var int_entrada = view[i];
 						//console.log("llegó:", int_entrada);
-						if(int_entrada<8){
-							id_nodo_proximo_char = int_entrada;
-						}else{
-							if(id_nodo_proximo_char == -1) return;
-							var sesion = _.findWhere(_this.sesiones, {idNodo: id_nodo_proximo_char});
-							if(!sesion) {
-								sesion = new NodoSesionSeriePG(id_nodo_proximo_char, {verbose: _this.verbose});
+						if(int_entrada<10){
+							sesion_que_recibe_proximo_char = _.findWhere(_this.sesiones, {idNodo: int_entrada});
+							if(!sesion_que_recibe_proximo_char) {
+								sesion = new NodoSesionSeriePG(int_entrada, {verbose: _this.verbose});
 								_this.sesiones.push(sesion);
 								Vx.conectarCon(sesion);
 							}
+						}else{
 							sesion.recibirIntSerie(int_entrada);
-						}
-					}
-//					buffer_entrada_serie += String.fromCharCode.apply(null, view);
-					
-					
-//					buffer_entrada_serie += String.fromCharCode.apply(null, view);					
-//					var mensajes_en_buffer = buffer_entrada_serie.split('|');
-//					if(mensajes_en_buffer.length>1){
-//						var mensaje;
-//						try{
-//							mensaje = JSON.parse(mensajes_en_buffer[0]);
-//						}catch(err){
-//							if(_this.verbose) console.log("error al parsear:", mensajes_en_buffer[0]);
-//						}
-//						if(mensaje){
-//							if(mensaje.idNodo){
-//								var sesion = _.findWhere(_this.sesiones, {idNodo: mensaje.idNodo});
-//								if(!sesion) {
-//									sesion = new NodoSesionSeriePG(mensaje.idNodo, {verbose: _this.verbose});
-//									_this.sesiones.push(sesion);
-//									Vx.conectarCon(sesion);
-//								}
-//								sesion.recibirMensajeSerie(mensaje.msj);
-//							}
-//						}
-//						buffer_entrada_serie = "";
-//						for(var i=1; i<mensajes_en_buffer.length; i++){
-//							buffer_entrada_serie+=mensajes_en_buffer[i] + "|";
-//						}
-//						buffer_entrada_serie = buffer_entrada_serie.substring(0,buffer_entrada_serie.length-2);
-//					}						
+						}	
+					}					
 				},
 				function(err){
 					if(_this.verbose) console.log("error al registrar callback:", err);

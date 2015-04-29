@@ -41,10 +41,18 @@ var ControlAire = function(id){
 	});
 	
 	$("#panel_de_mando").append(ui);	
-	$("#panel_de_mando #aire_" + id + " .indicador_temperatura").sGlide({
+	var ind_temp = $("#panel_de_mando #aire_" + id + " .indicador_temperatura");
+	ind_temp.sGlide({
 		height		: 20,
 		image		: 'sGlide/img/knob.png',
 		startAt		: 70,
 		colorShift	: ['rgb(63, 255, 255)', 'rgb(244, 109, 60)'],
+	});
+	
+	Vx.when({
+		idAire:id,
+		tipoDeMensaje: "Aire.temperatura"
+	},function(mensaje){
+		ind_temp.sGlide('startAt', mensaje.temperatura/4);
 	});
 };
